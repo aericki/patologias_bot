@@ -1,5 +1,45 @@
-.venv
-__pycache__
-*.pyc
-*.md
+# Environment variables
+.env
+.env.local
 
+# Credentials and keys
+bot_key.pem
+*.pem
+*.key
+
+# Python cache
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+DEPLOY.md
+plano_melhorias.md
+plano.md
