@@ -1,8 +1,7 @@
 # 🏗️ Bot de Identificação de Patologias Estruturais
 
-> **Projeto de TCC - Engenharia Civil**  
-> Uso de Inteligência Artificial na Identificação Automatizada de Patologias em Edificações
-
+> **Projeto de TCC - Engenharia Civil - UNISA**  
+> USO DE I.A NA IDENTIFICAÇÃO DE FISSURAS E INFILTRAÇÕES EM EDIFICAÇÕES
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://core.telegram.org/bots)
 [![Google Gemini](https://img.shields.io/badge/Google-Gemini%201.5-orange.svg)](https://ai.google.dev/)
