@@ -2,9 +2,9 @@
 
 > **Projeto de TCC - Engenharia Civil - UNISA**  
 > USO DE I.A NA IDENTIFICAÇÃO DE FISSURAS E INFILTRAÇÕES EM EDIFICAÇÕES
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-[![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://core.telegram.org/bots)
-[![Google Gemini](https://img.shields.io/badge/Google-Gemini%201.5-orange.svg)](https://ai.google.dev/)
+> [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+> [![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://core.telegram.org/bots)
+> [![Google Gemini](https://img.shields.io/badge/Google-Gemini%201.5-orange.svg)](https://ai.google.dev/)
 
 ## 📋 Sobre o Projeto
 
@@ -20,9 +20,11 @@ O sistema consiste em um **chatbot no Telegram** que utiliza modelos de linguage
 ### 🎯 Objetivos
 
 **Geral:**
+
 - Avaliar o potencial de algoritmos de IA na detecção automática de fissuras e infiltrações em estruturas residenciais.
 
 **Específicos:**
+
 - Desenvolver uma ferramenta acessível para análise preliminar de patologias
 - Testar a precisão de modelos de IA generativa em diagnósticos estruturais
 - Comparar diagnósticos automatizados com análises técnicas tradicionais
@@ -35,6 +37,12 @@ O sistema consiste em um **chatbot no Telegram** que utiliza modelos de linguage
 - ✅ Análise de imagens via Telegram
 - ✅ Identificação automática de patologias estruturais
 - ✅ Diagnóstico com base em IA (Google Gemini 1.5 Flash)
+- ✅ **Guia de Regularização de Imóveis** com submenu interativo:
+  - 🏠 Regularizar imóvel existente (coleta guiada de dados)
+  - 📐 Aprovar projeto novo na prefeitura (checklist de documentos)
+  - 📄 Consulta livre (texto aberto)
+- ✅ Base legal embutida: Lei 13.465/2017 (Reurb), Lei 6.766/79, Código de Obras
+- ✅ Conversa multi-turno: detalhar itens e refinar por cidade
 - ✅ Laudo estruturado contendo:
   - **Diagnóstico:** Tipo de patologia identificada
   - **Causa Provável:** Origem do problema
@@ -66,12 +74,14 @@ O sistema consiste em um **chatbot no Telegram** que utiliza modelos de linguage
 ### Passo a Passo
 
 1. **Clone o repositório:**
+
 ```bash
 git clone <url-do-repositorio>
 cd botEng
 ```
 
 2. **Crie um ambiente virtual (recomendado):**
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
@@ -80,6 +90,7 @@ venv\Scripts\activate  # Windows
 ```
 
 3. **Instale as dependências:**
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -87,21 +98,25 @@ pip install -r requirements.txt
 4. **Configure as variáveis de ambiente:**
 
 Copie o arquivo `.env.example` para `.env`:
+
 ```bash
 cp .env.example .env
 ```
 
 Edite o arquivo `.env` e adicione suas credenciais:
+
 ```env
 TELEGRAM_TOKEN=seu_token_do_telegram_aqui
 GOOGLE_API_KEY=sua_chave_api_google_aqui
 ```
 
 **Como obter as credenciais:**
+
 - **Telegram Token:** Fale com [@BotFather](https://t.me/botfather) no Telegram
 - **Google API Key:** Acesse [Google AI Studio](https://aistudio.google.com/app/apikey)
 
 5. **Execute o bot:**
+
 ```bash
 python main.py
 ```
@@ -112,14 +127,17 @@ python main.py
 
 1. **Inicie uma conversa** com o bot no Telegram
 2. **Envie o comando** `/start` para ver as instruções
-3. **Tire uma foto** da patologia (fissura, infiltração, etc.)
-4. **Envie a imagem** para o bot
-5. **Receba o diagnóstico** automatizado em segundos!
+3. Escolha no menu entre **📸 Analisar Patologia** e **📋 Checklist Regularização**
+4. Para patologia, **envie uma foto** da manifestação (fissura, infiltração, etc.)
+5. Para regularização, selecione o cenário (imóvel existente, projeto novo ou consulta livre)
+6. Responda as perguntas guiadas (tipo de imóvel, escritura, cidade)
+7. Receba o checklist personalizado e use os botões de follow-up
 
 ### Comandos Disponíveis
 
 - `/start` - Inicia o bot e exibe mensagem de boas-vindas
 - `/ajuda` - Mostra instruções de uso
+- `/regularizar` - Acesso direto ao Guia de Regularização
 
 ---
 
@@ -144,14 +162,17 @@ botEng/
 ## 🔬 Metodologia (TCC)
 
 ### Tipo de Pesquisa
+
 - **Classificação:** Pesquisa Aplicada, Exploratória
 - **Abordagem:** Estudo de Caso com Validação Tecnológica
 
 ### Ferramenta Utilizada
+
 - **Modelo:** Google Gemini 1.5 Flash (LLM Multimodal)
 - **Justificativa:** Acessibilidade, rapidez de processamento e capacidade de interpretar contexto além da simples detecção de pixels
 
 ### Coleta de Dados
+
 - **Local:** Residências unifamiliares e edificações diversas
 - **Procedimento:** Captura de imagens com smartphone focando em patologias visíveis
 

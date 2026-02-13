@@ -2,8 +2,11 @@ import os
 import logging
 from dotenv import load_dotenv
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
-from src.handlers import start, help_command, handle_photo, handle_message
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
+from src.handlers import (
+    start, help_command, handle_photo, handle_message,
+    handle_callback, regularizar_command,
+)
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -29,6 +32,8 @@ def main():
     # Handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ajuda", help_command))
+    app.add_handler(CommandHandler("regularizar", regularizar_command))
+    app.add_handler(CallbackQueryHandler(handle_callback))
     app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     
