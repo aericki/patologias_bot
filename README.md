@@ -1,64 +1,71 @@
-# 🏗️ Bot de Identificação de Patologias Estruturais
+# 🏗️ Assistente de Engenharia Civil no Telegram
 
-> **Projeto de TCC - Engenharia Civil - UNISA**  
-> USO DE I.A NA IDENTIFICAÇÃO DE FISSURAS E INFILTRAÇÕES EM EDIFICAÇÕES
-> [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-> [![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://core.telegram.org/bots)
-> [![Google Gemini](https://img.shields.io/badge/Google-Gemini%201.5-orange.svg)](https://ai.google.dev/)
+> **Projeto acadêmico (TCC + Projeto Integrador) – Engenharia Civil**
 
-## 📋 Sobre o Projeto
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://core.telegram.org/bots)
+[![Google Gemini](https://img.shields.io/badge/Google-Gemini-orange.svg)](https://ai.google.dev/)
 
-Este projeto foi desenvolvido como parte do Trabalho de Conclusão de Curso (TCC) em Engenharia Civil, com o objetivo de **avaliar o potencial de algoritmos de Inteligência Artificial e Visão Computacional na detecção automática de patologias estruturais** em edificações residenciais.
+## 📋 Visão Geral
 
-O sistema consiste em um **chatbot no Telegram** que utiliza modelos de linguagem multimodais (LLM com visão) para analisar imagens de estruturas e identificar:
+Este projeto implementa um bot de Telegram que atua como **mentor técnico** para **engenheiros e arquitetos recém-formados**, com dois módulos principais:
 
-- 🔍 **Fissuras** (térmicas, por recalque, retração)
-- 💧 **Infiltrações** (ascendente, por chuva, vazamentos)
-- 🧱 **Trincas e rachaduras**
-- 🌊 **Problemas de umidade**
+- **📸 Patologias construtivas**: apoio ao diagnóstico preliminar por imagem
+- **📋 Regularização e aprovação de projetos**: roteiro prático para condução de processos em prefeitura
 
-### 🎯 Objetivos
+O foco não é orientar leigos, e sim apoiar o profissional no início da prática, com linguagem técnica e direcionamento de execução.
 
-**Geral:**
+---
 
-- Avaliar o potencial de algoritmos de IA na detecção automática de fissuras e infiltrações em estruturas residenciais.
+## 🎯 Público-Alvo
 
-**Específicos:**
-
-- Desenvolver uma ferramenta acessível para análise preliminar de patologias
-- Testar a precisão de modelos de IA generativa em diagnósticos estruturais
-- Comparar diagnósticos automatizados com análises técnicas tradicionais
-- Fornecer laudos estruturados com base em normas técnicas brasileiras (NBR)
+- Engenheiros civis recém-formados
+- Arquitetos recém-formados
+- Profissionais iniciando atuação em regularização, aprovação e diagnóstico preliminar
 
 ---
 
 ## 🚀 Funcionalidades
 
-- ✅ Análise de imagens via Telegram
-- ✅ Identificação automática de patologias estruturais
-- ✅ Diagnóstico com base em IA (Google Gemini 1.5 Flash)
-- ✅ **Guia de Regularização de Imóveis** com submenu interativo:
-  - 🏠 Regularizar imóvel existente (coleta guiada de dados)
-  - 📐 Aprovar projeto novo na prefeitura (checklist de documentos)
-  - 📄 Consulta livre (texto aberto)
-- ✅ Base legal embutida: Lei 13.465/2017 (Reurb), Lei 6.766/79, Código de Obras
-- ✅ Conversa multi-turno: detalhar itens e refinar por cidade
-- ✅ Laudo estruturado contendo:
-  - **Diagnóstico:** Tipo de patologia identificada
-  - **Causa Provável:** Origem do problema
-  - **Reparo Sugerido:** Recomendações técnicas
-  - **Normas Técnicas:** NBR 9575, NBR 15575, NBR 13752
-- ✅ Interface simples e intuitiva via Telegram
+- ✅ Análise de imagens de patologias via Telegram
+- ✅ Classificação preliminar com base técnica (fissura, trinca, rachadura, infiltração)
+- ✅ Respostas com referência normativa (NBR)
+- ✅ Guia de regularização com fluxo interativo:
+  - 🏠 Regularizar imóvel existente
+  - 📐 Aprovar projeto novo
+  - 📄 Consulta livre
+- ✅ Follow-up técnico:
+  - Detalhamento de itens
+  - Refinamento por cidade/UF
+- ✅ Orientação de estilo “colega sênior mentorando profissional júnior”
+- ✅ Envio de respostas longas em partes (evita erro de limite do Telegram)
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🧠 Base Técnica e Legal
 
-- **Python 3.8+** - Linguagem de programação
-- **python-telegram-bot** - Framework para bots do Telegram
-- **Google Generative AI (Gemini 1.5 Flash)** - Modelo de IA multimodal
-- **Pillow** - Processamento de imagens
-- **python-dotenv** - Gerenciamento de variáveis de ambiente
+### Patologias
+
+- NBR 9575
+- NBR 15575
+- NBR 13752
+
+### Regularização e aprovação
+
+- Lei 13.465/2017 (Reurb)
+- Lei 6.766/79 (Parcelamento do Solo)
+- Art. 1.245 do Código Civil
+- Código de Obras municipal (conforme cidade)
+
+---
+
+## 🛠️ Tecnologias
+
+- Python 3.8+
+- python-telegram-bot
+- Google Generative AI (Gemini)
+- Pillow
+- python-dotenv
 
 ---
 
@@ -66,56 +73,49 @@ O sistema consiste em um **chatbot no Telegram** que utiliza modelos de linguage
 
 ### Pré-requisitos
 
-- Python 3.8 ou superior
-- Conta no Telegram
-- Chave de API do Google Gemini
-- Token de Bot do Telegram
+- Python 3.8+
+- Token de bot do Telegram
+- API key do Google AI Studio
 
-### Passo a Passo
-
-1. **Clone o repositório:**
+### 1) Clonar o projeto
 
 ```bash
 git clone <url-do-repositorio>
-cd botEng
+cd patologias_bot
 ```
 
-2. **Crie um ambiente virtual (recomendado):**
+### 2) Criar e ativar ambiente virtual
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# ou
-venv\Scripts\activate  # Windows
+python -m venv .venv
+
+# Linux/Mac
+source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
 ```
 
-3. **Instale as dependências:**
+### 3) Instalar dependências
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **Configure as variáveis de ambiente:**
-
-Copie o arquivo `.env.example` para `.env`:
+### 4) Configurar variáveis de ambiente
 
 ```bash
 cp .env.example .env
 ```
 
-Edite o arquivo `.env` e adicione suas credenciais:
+No `.env`:
 
 ```env
-TELEGRAM_TOKEN=seu_token_do_telegram_aqui
-GOOGLE_API_KEY=sua_chave_api_google_aqui
+TELEGRAM_TOKEN=seu_token
+GOOGLE_API_KEY=sua_chave
 ```
 
-**Como obter as credenciais:**
-
-- **Telegram Token:** Fale com [@BotFather](https://t.me/botfather) no Telegram
-- **Google API Key:** Acesse [Google AI Studio](https://aistudio.google.com/app/apikey)
-
-5. **Execute o bot:**
+### 5) Executar
 
 ```bash
 python main.py
@@ -123,119 +123,61 @@ python main.py
 
 ---
 
-## 💬 Como Usar
+## 💬 Uso no Telegram
 
-1. **Inicie uma conversa** com o bot no Telegram
-2. **Envie o comando** `/start` para ver as instruções
-3. Escolha no menu entre **📸 Analisar Patologia** e **📋 Checklist Regularização**
-4. Para patologia, **envie uma foto** da manifestação (fissura, infiltração, etc.)
-5. Para regularização, selecione o cenário (imóvel existente, projeto novo ou consulta livre)
-6. Responda as perguntas guiadas (tipo de imóvel, escritura, cidade)
-7. Receba o checklist personalizado e use os botões de follow-up
+1. Envie `/start`
+2. Escolha:
+   - `📸 Analisar Patologia`
+   - `📋 Checklist Regularização`
+3. Siga o fluxo guiado
+4. Use os botões de follow-up para aprofundar
 
-### Comandos Disponíveis
+### Comandos
 
-- `/start` - Inicia o bot e exibe mensagem de boas-vindas
-- `/ajuda` - Mostra instruções de uso
-- `/regularizar` - Acesso direto ao Guia de Regularização
+- `/start` – inicia o bot
+- `/ajuda` – dicas para fotos de vistoria
+- `/regularizar` – atalho para o fluxo regulatório
 
 ---
 
 ## 📁 Estrutura do Projeto
 
-```
-botEng/
-├── main.py                 # Arquivo principal do bot
-├── requirements.txt        # Dependências do projeto
-├── .env.example           # Exemplo de variáveis de ambiente
-├── .gitignore             # Arquivos ignorados pelo Git
+```text
+patologias_bot/
+├── main.py
+├── requirements.txt
+├── .env.example
+├── docker-compose.yml
+├── Dockerfile
+├── list_models.py
 ├── src/
-│   ├── __init__.py        # Inicialização do módulo
-│   ├── handlers.py        # Handlers de comandos e mensagens
-│   ├── ai_service.py      # Integração com Google Gemini
-│   └── utils.py           # Funções utilitárias
-└── README.md              # Este arquivo
+│   ├── __init__.py
+│   ├── ai_service.py
+│   ├── handlers.py
+│   └── utils.py
+└── README.md
 ```
 
 ---
 
-## 🔬 Metodologia (TCC)
+## ⚠️ Limitações
 
-### Tipo de Pesquisa
-
-- **Classificação:** Pesquisa Aplicada, Exploratória
-- **Abordagem:** Estudo de Caso com Validação Tecnológica
-
-### Ferramenta Utilizada
-
-- **Modelo:** Google Gemini 1.5 Flash (LLM Multimodal)
-- **Justificativa:** Acessibilidade, rapidez de processamento e capacidade de interpretar contexto além da simples detecção de pixels
-
-### Coleta de Dados
-
-- **Local:** Residências unifamiliares e edificações diversas
-- **Procedimento:** Captura de imagens com smartphone focando em patologias visíveis
+- A qualidade da foto influencia fortemente o diagnóstico
+- Pode haver falso positivo/negativo em análise preliminar por IA
+- Não substitui vistoria in loco, ensaios e responsabilidade técnica
+- Deve ser usado como ferramenta de apoio profissional
 
 ---
 
-## 📊 Resultados Esperados
+## 🔭 Próximos Passos
 
-O sistema fornece laudos preliminares que podem auxiliar engenheiros e técnicos em:
-
-- ✅ **Triagem inicial** de patologias
-- ✅ **Padronização** de diagnósticos preliminares
-- ✅ **Agilidade** na análise (segundos vs. horas)
-- ✅ **Acesso rápido** a normas técnicas aplicáveis
-
-### ⚠️ Limitações
-
-- Dependência da qualidade da foto (iluminação, foco, ângulo)
-- Possibilidade de falsos positivos (confundir sujeira ou sombra com fissura)
-- **A IA não substitui a visita in loco** e testes físicos (percussão, medição de umidade)
-- Ferramenta deve ser usada como **auxiliar ao engenheiro**, não como substituta
-
----
-
-## 📚 Normas Técnicas Referenciadas
-
-- **NBR 9575** - Impermeabilização - Seleção e projeto
-- **NBR 15575** - Edificações habitacionais - Desempenho
-- **NBR 13752** - Perícias de engenharia na construção civil
-
----
-
-## 🚀 Deploy
-
-Para instruções detalhadas sobre como fazer deploy do bot em produção, consulte o arquivo `DEPLOY.md`.
+- Aprimorar prompts com legislação municipal por base de conhecimento
+- Geração de relatórios técnicos (PDF) para apoio ao laudo
+- Métricas de qualidade de resposta por tipo de caso
+- Ampliação de fluxos para acompanhamento de protocolo em prefeitura
 
 ---
 
 ## 🤝 Contribuições
 
-Este é um projeto acadêmico desenvolvido para TCC. Sugestões e melhorias são bem-vindas!
-
----
-
-## 📝 Licença
-
-Este projeto foi desenvolvido para fins acadêmicos como parte do TCC em Engenharia Civil.
-
----
-
-## 👨‍💻 Autor
-
-Desenvolvido como Trabalho de Conclusão de Curso (TCC) em Engenharia Civil.
-
----
-
-## 🔮 Trabalhos Futuros
-
-- Treinar uma rede neural específica com dataset brasileiro de patologias
-- Implementar detecção de múltiplas patologias em uma única imagem
-- Adicionar suporte para análise de vídeos
-- Integração com drones para inspeção de fachadas
-- Sistema de geração automática de relatórios técnicos em PDF
-
----
-
-**⚡ Construção 4.0 - Modernizando a Engenharia Civil com Inteligência Artificial**
+Projeto acadêmico em evolução. Sugestões e melhorias são bem-vindas.
