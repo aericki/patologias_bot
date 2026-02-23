@@ -1,6 +1,10 @@
-# Environment variables
+# Environment variables — NUNCA commitar tokens aqui
 .env
 .env.local
+.env.*
+
+# Script de deploy contém referência às credenciais — não commitar
+deploy_azure.ps1
 
 # Credentials and keys
 bot_key.pem

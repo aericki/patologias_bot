@@ -15,6 +15,8 @@ from src.ai_service import (
     gerar_checklist_regularizacao,
     gerar_checklist_aprovacao_projeto,
     gerar_followup_regularizacao,
+    gerar_apo_usuario,
+    gerar_apo_especialista,
 )
 
 
@@ -29,8 +31,16 @@ def _user_data(context: ContextTypes.DEFAULT_TYPE) -> dict[str, Any]:
 def main_menu_markup() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup([
         [KeyboardButton("📸 Analisar Patologia"), KeyboardButton("📋 Checklist Regularização")],
+        [KeyboardButton("🏢 Avaliação Pós-Ocupação (APO)")],
         [KeyboardButton("ℹ️ Sobre o Projeto")],
     ], resize_keyboard=True)
+
+
+def apo_submenu() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("🗣️ Relato do Morador (Usuário)", callback_data="apo_usuario")],
+        [InlineKeyboardButton("👷 Observação Técnica (Especialista)", callback_data="apo_especialista")],
+    ])
 
 
 def regularizacao_submenu() -> InlineKeyboardMarkup:
@@ -82,7 +92,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Fui feito para ajudar engenheiros e arquitetos recém-formados "
         "no dia a dia profissional.\n\n"
         "📸 *Patologias* — envie foto da vistoria para orientação de diagnóstico\n"
-        "📋 *Regularização* — roteiro prático para conduzir legalização e aprovação\n\n"
+        "📋 *Regularização* — roteiro prático para conduzir legalização e aprovação\n"
+        "🏢 *APO* — Avaliação Pós-Ocupação: visão do morador e do especialista (NBR 15575)\n\n"
         "Escolha uma opção abaixo:",
         reply_markup=main_menu_markup(),
         parse_mode='Markdown',
@@ -153,6 +164,41 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
     data = query.data or ""
     user_data = _user_data(context)
+
+    if data == "apo_usuario":
+        user_data['apo_state'] = {'tipo': 'usuario', 'etapa': 'aguardando_relato'}
+        await query.edit_message_text(
+            "🗣️ *Relato do Morador*\n\n"
+            "Peça ao morador (ou descreva você mesmo) a experiência de habitar "
+            "o imóvel: conforto, funcionalidade, problemas do dia a dia.\n\n"
+            "_Exemplo: 'O quarto é muito quente no verão. A janela pega sol o dia "
+            "todo. O banheiro tem barulho de cano quando o vizinho usa a água.'_\n\n"
+            "Pode escrever abaixo:",
+            parse_mode='Markdown',
+        )
+        return
+
+    if data == "apo_especialista":
+        user_data['apo_state'] = {'tipo': 'especialista', 'etapa': 'aguardando_observacao'}
+        await query.edit_message_text(
+            "👷 *Observação Técnica — Walkthrough*\n\n"
+            "Descreva o que você está observando em campo. Inclua: sistema construtivo "
+            "afetado, tempo de uso do imóvel, manifestação patológica visível.\n\n"
+            "_Exemplo: 'Manchas de umidade ascendente na parede da sala, ~40 cm de "
+            "altura, imóvel com 8 anos. Piso cerâmico com som cavo em 3 pontos próximos "
+            "à janela.'_\n\n"
+            "Pode escrever abaixo:",
+            parse_mode='Markdown',
+        )
+        return
+
+    if data == "apo_menu":
+        user_data.pop('apo_state', None)
+        await query.edit_message_text("Voltando ao menu principal…")
+        message = update.effective_message
+        if message is not None:
+            await message.reply_text("Escolha uma opção:", reply_markup=main_menu_markup())
+        return
 
     if data in ("reg_existente", "reg_projeto_novo"):
         cenario = "existente" if data == "reg_existente" else "projeto_novo"
@@ -339,6 +385,37 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = message.text
     user_data = _user_data(context)
     state = cast(dict[str, Any], user_data.get('regularizacao_state', {}))
+    apo_state = cast(dict[str, Any], user_data.get('apo_state', {}))
+
+    if apo_state.get('etapa') == 'aguardando_relato':
+        user_data.pop('apo_state', None)
+        await message.reply_text("Analisando o relato do morador… ⏳")
+        await _send_typing(update, context)
+        resposta = await gerar_apo_usuario(text)
+        await _enviar_resposta_ia(message, resposta)
+        await message.reply_text(
+            "Deseja voltar ao menu principal?",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("🏠 Menu principal", callback_data="apo_menu")],
+                [InlineKeyboardButton("🔁 Nova análise APO", callback_data="apo_usuario")],
+            ])
+        )
+        return
+
+    if apo_state.get('etapa') == 'aguardando_observacao':
+        user_data.pop('apo_state', None)
+        await message.reply_text("Gerando checklist técnico de APO… ⏳")
+        await _send_typing(update, context)
+        resposta = await gerar_apo_especialista(text)
+        await _enviar_resposta_ia(message, resposta)
+        await message.reply_text(
+            "Deseja voltar ao menu principal?",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("🏠 Menu principal", callback_data="apo_menu")],
+                [InlineKeyboardButton("🔁 Nova análise APO", callback_data="apo_especialista")],
+            ])
+        )
+        return
 
     if state.get('etapa') == 'cidade':
         dados = cast(dict[str, Any], state.setdefault('dados', {}))
@@ -424,6 +501,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await message.reply_text(
             "📋 *Guia de Regularização de Imóveis*\n\nSelecione o tipo de consulta:",
             reply_markup=regularizacao_submenu(),
+            parse_mode='Markdown',
+        )
+    elif text == "🏢 Avaliação Pós-Ocupação (APO)":
+        await message.reply_text(
+            "🏢 *Avaliação Pós-Ocupação — APO*\n\n"
+            "Selecione a perspectiva da análise:",
+            reply_markup=apo_submenu(),
             parse_mode='Markdown',
         )
     elif text == "📸 Dicas de Foto":

@@ -187,3 +187,77 @@ async def gerar_followup_regularizacao(checklist_anterior, pergunta_usuario):
 
     except Exception as e:
         return f"Erro na consulta de follow-up: {str(e)}"
+
+
+# ── Avaliação Pós-Ocupação (APO) ────────────────────────────
+
+async def gerar_apo_usuario(relato_morador):
+    """
+    Processa o relato do morador (linguagem leiga) e estrutura em um
+    relatório técnico de percepção do usuário (APO).
+    """
+    try:
+        configure_genai()
+        model = genai.GenerativeModel('gemini-flash-latest')
+
+        prompt = (
+            "Você é um pesquisador especialista em Avaliação Pós-Ocupação (APO) "
+            "e Desempenho de Edificações.\n\n"
+            "CONTEXTO: Estamos realizando uma APO em uma residência. O morador "
+            "forneceu um relato sobre sua experiência morando no local, abordando "
+            "suas percepções de conforto, funcionalidade e problemas do dia a dia. "
+            "Sua tarefa é traduzir esse relato leigo para categorias técnicas de desempenho.\n\n"
+            f"RELATO DO MORADOR: '{relato_morador}'\n\n"
+            "Gere um RELATÓRIO DE PERCEPÇÃO DO USUÁRIO estruturado da seguinte forma:\n"
+            "1. **🌡️ Conforto Ambiental** — Classifique os relatos em: Térmico, Acústico ou Lumínico.\n"
+            "2. **🛋️ Funcionalidade e Uso** — Como o espaço atende às necessidades (layout, tomadas, circulação).\n"
+            "3. **⚠️ Alertas de Manutenção** — Problemas relatados que indicam falhas construtivas.\n"
+            "4. **📊 Índice de Satisfação Sugerido** — Avalie o tom do relato (Positivo, Neutro ou Negativo).\n"
+            "5. **🔍 Foco para a Inspeção** — O que o engenheiro deve procurar durante a vistoria física "
+            "(Walkthrough) com base nestas reclamações.\n\n"
+            "Responda de forma técnica, objetiva e estruturada, utilizando marcadores."
+        )
+
+        response = await model.generate_content_async(prompt)
+        return response.text
+
+    except Exception as e:
+        return f"Erro na análise de APO (Usuário): {str(e)}"
+
+
+async def gerar_apo_especialista(dados_inspecao):
+    """
+    Gera o checklist e avaliação de desempenho (NBR 15575) com base
+    na observação técnica do engenheiro durante o walkthrough.
+    """
+    try:
+        configure_genai()
+        model = genai.GenerativeModel('gemini-flash-latest')
+
+        prompt = (
+            "Você é um Engenheiro Civil Sênior, especialista em Desempenho de "
+            "Edificações (NBR 15575) e Avaliação Pós-Ocupação (APO).\n\n"
+            "CONTEXTO: Um engenheiro júnior está em campo realizando o 'Walkthrough' "
+            "(vistoria especialista) de uma APO. Ele encontrou uma situação específica "
+            "e precisa da sua orientação sobre como avaliar o desempenho desse sistema.\n\n"
+            f"OBSERVAÇÃO DE CAMPO: '{dados_inspecao}'\n\n"
+            "Gere um CHECKLIST TÉCNICO DE APO para orientar o profissional:\n"
+            "1. **📋 Requisito de Desempenho** — Qual sistema está falhando e qual o "
+            "critério da NBR 15575 que rege isso (ex: Estanqueidade, Durabilidade, etc.).\n"
+            "2. **⏳ Vida Útil de Projeto (VUP) e Garantia** — Indique se, pelo tempo "
+            "de uso relatado, a falha configura perda prematura de vida útil ou falta "
+            "de manutenção do usuário.\n"
+            "3. **📏 Ensaios e Medições Recomendadas** — Quais ferramentas ou testes o "
+            "engenheiro deve aplicar in loco para validar a falha (ex: termografia, "
+            "teste de percussão, medição de umidade).\n"
+            "4. **⚖️ Cruzamento de Dados** — Como cruzar essa falha técnica com a possível "
+            "reclamação do morador.\n"
+            "5. **💡 Dica de Especialista** — Algo prático sobre a elaboração do laudo final.\n\n"
+            "Fale de engenheiro para engenheiro. Linguagem técnica e normativa."
+        )
+
+        response = await model.generate_content_async(prompt)
+        return response.text
+
+    except Exception as e:
+        return f"Erro na análise de APO (Especialista): {str(e)}"
