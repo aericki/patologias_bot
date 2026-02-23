@@ -12,9 +12,9 @@
 
 Este projeto implementa um bot de Telegram que atua como **mentor técnico** para **engenheiros e arquitetos recém-formados**. Construído sob os princípios da **Clean Architecture**, o bot possui três módulos principais:
 
-1. **📸 Patologias Construtivas**: Apoio ao diagnóstico preliminar por análise de imagens (visão computacional via IA).
-2. **📋 Regularização e Aprovação de Projetos**: Roteiro prático orientando a condução de processos burocráticos municipais.
-3. **🏢 Avaliação Pós-Ocupação (APO)**: Análise de desempenho habitacional sob duas óticas: a percepção do morador e o checklist do especialista (Base: NBR 15575).
+1. **📸 Patologias Construtivas (TCC)**: Apoio ao diagnóstico preliminar por análise de imagens (visão computacional via IA).
+2. **🏢 Avaliação Pós-Ocupação (Projeto Integrador II)**: Análise de desempenho habitacional sob duas óticas: a percepção do morador e o checklist do especialista (Base: NBR 15575).
+3. **📋 Regularização de Imóveis (Projeto Integrador III)**: Roteiro prático orientando a condução de processos burocráticos municipais.
 
 O foco não é orientar leigos, mas atuar como um "colega sênior", fornecendo uma base técnica para a elaboração de laudos e condução de projetos do profissional júnior.
 

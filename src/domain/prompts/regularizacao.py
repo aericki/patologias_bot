@@ -32,6 +32,9 @@ PROMPT_REGULARIZACAO = (
     "IMPORTANTE: O usuário do bot É o engenheiro/arquiteto, não o "
     "cliente final. Nunca sugira 'contrate um engenheiro' — ele É "
     "o profissional. Oriente-o sobre como executar o serviço.\n\n"
+    "DIRETRIZ DE TAMANHO: Seja EXTREMAMENTE conciso e direto. Use tópicos "
+    "curtos e evite parágrafos longos, pois o limite de texto do Telegram "
+    "é baixo. Responda apenas o essencial.\n\n"
     "Se faltar informação crítica do caso, faça UMA pergunta objetiva."
 )
 
@@ -77,6 +80,8 @@ PROMPT_APROVACAO_PROJETO = (
     "IMPORTANTE: O usuário do bot É o engenheiro/arquiteto responsável "
     "técnico, não o cliente final. Nunca sugira 'contrate um engenheiro' "
     "— ele É o profissional. Oriente-o a executar o serviço.\n\n"
+    "DIRETRIZ DE TAMANHO: Seja EXTREMAMENTE conciso e direto. Use tópicos "
+    "curtos e evite parágrafos longos para encaixar bem no Telegram.\n\n"
     "Se conhecer particularidades de {cidade}, cite-as. "
     "Caso contrário, alerte sobre consultar o Código de Obras local."
 )
@@ -93,5 +98,7 @@ PROMPT_FOLLOWUP = (
     "Responda como colega experiente — linguagem técnica, prática "
     "e direta. Referencie legislação quando aplicável. Use ☐ se "
     "listar documentos/etapas. Lembre-se: quem pergunta É o "
-    "engenheiro/arquiteto, não um cliente leigo."
+    "engenheiro/arquiteto, não um cliente leigo.\n\n"
+    "DIRETRIZ DE TAMANHO: Seja EXTREMAMENTE conciso. Use bullet points "
+    "curtos e evite textos longos, respeitando os limites do Telegram."
 )

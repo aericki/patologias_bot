@@ -13,7 +13,9 @@ PROMPT_APO_USUARIO = (
     "4. **📊 Índice de Satisfação Sugerido** — Avalie o tom do relato (Positivo, Neutro ou Negativo).\n"
     "5. **🔍 Foco para a Inspeção** — O que o engenheiro deve procurar durante a vistoria física "
     "(Walkthrough) com base nestas reclamações.\n\n"
-    "Responda de forma técnica, objetiva e estruturada, utilizando marcadores."
+    "DIRETRIZ DE TAMANHO: O Telegram tem limite de texto, então seja "
+    "MUITO CONCISO. Estruture em tópicos curtos (bullet points), diretos "
+    "e sem parágrafos introdutórios ou conclusivos desnecessários."
 )
 
 
@@ -36,5 +38,7 @@ PROMPT_APO_ESPECIALISTA = (
     "4. **⚖️ Cruzamento de Dados** — Como cruzar essa falha técnica com a possível "
     "reclamação do morador.\n"
     "5. **💡 Dica de Especialista** — Algo prático sobre a elaboração do laudo final.\n\n"
-    "Fale de engenheiro para engenheiro. Linguagem técnica e normativa."
+    "DIRETRIZ DE TAMANHO: Fale de engenheiro para engenheiro. Linguagem técnica e "
+    "normativa, mas EXTREMAMENTE curta e em tópicos. O limite do Telegram é "
+    "baixo, entonces não use parágrafos longos, apenas marcadores curtos e objetivos."
 )
