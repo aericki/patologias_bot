@@ -7,6 +7,7 @@ from src.domain.models import (
     TipoImovel,
     Escritura,
     TipoAPO,
+    ReusoState,
 )
 
 
@@ -67,3 +68,17 @@ class TestEnums:
 
     def test_cenario_members(self):
         assert len(CenarioRegularizacao) == 3
+
+
+class TestReusoState:
+    def test_creation_defaults(self):
+        state = ReusoState()
+        assert state.cidade is None
+        assert state.area is None
+        assert state.moradores is None
+
+    def test_creation_with_data(self):
+        state = ReusoState(cidade="Santos", area="100", moradores="4")
+        assert state.cidade == "Santos"
+        assert state.area == "100"
+        assert state.moradores == "4"

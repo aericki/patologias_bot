@@ -7,6 +7,7 @@ from src.domain.prompts.regularizacao import (
     PROMPT_FOLLOWUP,
 )
 from src.domain.prompts.apo import PROMPT_APO_USUARIO, PROMPT_APO_ESPECIALISTA
+from src.domain.prompts.reuso import PROMPT_REUSO_AGUA
 
 
 class TestPromptPatologia:
@@ -72,3 +73,14 @@ class TestPromptAPOEspecialista:
 
     def test_has_placeholder(self):
         assert "{observacao}" in PROMPT_APO_ESPECIALISTA
+
+
+class TestPromptReuso:
+    def test_has_placeholder(self):
+        assert "{cidade}" in PROMPT_REUSO_AGUA
+        assert "{calculo_preliminar}" in PROMPT_REUSO_AGUA
+
+    def test_has_keywords(self):
+        assert "NBR 15527" in PROMPT_REUSO_AGUA
+        assert "Azevedo Netto" in PROMPT_REUSO_AGUA
+        assert "Telegram" in PROMPT_REUSO_AGUA

@@ -17,6 +17,7 @@ from src.infrastructure.telegram.conversations import (
     patologia,
     regularizacao,
     apo,
+    reuso,
 )
 
 logger = logging.getLogger(__name__)
@@ -35,7 +36,8 @@ async def _start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "no dia a dia profissional.\n\n"
         "📸 *Patologias* — envie foto da vistoria para orientação de diagnóstico\n"
         "📋 *Regularização* — roteiro prático para conduzir legalização e aprovação\n"
-        "🏢 *APO* — Avaliação Pós-Ocupação: visão do morador e do especialista (NBR 15575)\n\n"
+        "🏢 *APO* — Avaliação Pós-Ocupação: visão do morador e especialista\n"
+        "🌱 *Sustentabilidade* — Dimensionamento de reuso de água pluvial (NBR 15527)\n\n"
         "Escolha uma opção abaixo:",
         reply_markup=main_menu_markup(),
         parse_mode="Markdown",
@@ -71,6 +73,9 @@ async def _about(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "Apoio ao diagnóstico de campo: o profissional envia a foto da "
         "vistoria e recebe orientação técnica para compor seu laudo "
         "(NBR 9575, 15575, 13752).\n\n"
+        "🌱 *Projeto Integrador I — Sustentabilidade*\n"
+        "Dimensionamento e estudo de viabilidade para reuso de água pluvial. "
+        "Matemática orientada a economia e ROI baseada na ABNT NBR 15527.\n\n"
         "🏢 *Projeto Integrador II — Avaliação Pós-Ocupação (APO)*\n"
         "Análise de desempenho habitacional sob duas óticas: percepção "
         "do morador e checklist técnico do especialista (NBR 15575).\n\n"
@@ -119,6 +124,7 @@ def create_application(settings: Settings):
     app.add_handler(patologia.create_handler())
     app.add_handler(regularizacao.create_handler())
     app.add_handler(apo.create_handler())
+    app.add_handler(reuso.create_handler())
 
     app.add_handler(MessageHandler(filters.PHOTO, _photo_outside_conv))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, _fallback_text))

@@ -48,3 +48,10 @@ class RegularizacaoState:
 @dataclass
 class ApoState:
     tipo: TipoAPO
+
+@dataclass
+class ReusoState:
+    cidade: str | None = None
+    area: str | None = None
+    moradores: str | None = None
+

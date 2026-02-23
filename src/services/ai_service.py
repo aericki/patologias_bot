@@ -10,6 +10,7 @@ from src.domain.prompts import (
     PROMPT_FOLLOWUP,
     PROMPT_APO_USUARIO,
     PROMPT_APO_ESPECIALISTA,
+    PROMPT_REUSO_AGUA,
 )
 
 logger = logging.getLogger(__name__)
@@ -73,6 +74,13 @@ class GeminiService:
         prompt = PROMPT_APO_USUARIO.format(relato=relato)
         return await self._call(prompt)
 
-    async def gerar_apo_especialista(self, observacao: str) -> str:
-        prompt = PROMPT_APO_ESPECIALISTA.format(observacao=observacao)
+    # ── Reuso de Água (PI I) ────────────────────────────────
+
+    async def gerar_relatorio_reuso_agua(
+        self, cidade: str, calculo_preliminar: str,
+    ) -> str:
+        prompt = PROMPT_REUSO_AGUA.format(
+            cidade=cidade,
+            calculo_preliminar=calculo_preliminar,
+        )
         return await self._call(prompt)

@@ -5,6 +5,7 @@ from src.domain.prompts.regularizacao import (
     PROMPT_FOLLOWUP,
 )
 from src.domain.prompts.apo import PROMPT_APO_USUARIO, PROMPT_APO_ESPECIALISTA
+from src.domain.prompts.reuso import PROMPT_REUSO_AGUA
 
 __all__ = [
     "PROMPT_PATOLOGIA",
@@ -13,4 +14,5 @@ __all__ = [
     "PROMPT_FOLLOWUP",
     "PROMPT_APO_USUARIO",
     "PROMPT_APO_ESPECIALISTA",
+    "PROMPT_REUSO_AGUA",
 ]

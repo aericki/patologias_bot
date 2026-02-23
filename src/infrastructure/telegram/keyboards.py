@@ -6,6 +6,7 @@ def main_menu_markup() -> ReplyKeyboardMarkup:
         [
             [KeyboardButton("📸 Analisar Patologia"), KeyboardButton("📋 Checklist Regularização")],
             [KeyboardButton("🏢 Avaliação Pós-Ocupação (APO)")],
+            [KeyboardButton("🌱 Edifício Sustentável (Reuso)")],
             [KeyboardButton("ℹ️ Sobre o Projeto")],
         ],
         resize_keyboard=True,
@@ -73,5 +74,14 @@ def apo_post_menu(callback_repeat: str) -> InlineKeyboardMarkup:
         [
             [InlineKeyboardButton("🏠 Menu principal", callback_data="apo_menu")],
             [InlineKeyboardButton("🔁 Nova análise APO", callback_data=callback_repeat)],
+        ]
+    )
+
+
+def reuso_post_menu() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton("🏠 Menu principal", callback_data="reuso_menu")],
+            [InlineKeyboardButton("🔁 Novo Cálculo", callback_data="reuso_novo")],
         ]
     )
