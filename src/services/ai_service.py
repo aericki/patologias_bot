@@ -1,6 +1,7 @@
 import logging
+import asyncio
 
-import google.generativeai as genai
+from google import genai
 from PIL import Image
 
 from src.domain.prompts import (
@@ -20,23 +21,35 @@ class GeminiService:
     """Encapsula todas as chamadas à API do Google Gemini."""
 
     def __init__(self, api_key: str, model_name: str = "gemini-flash-latest"):
-        genai.configure(api_key=api_key)
-        self._model = genai.GenerativeModel(model_name)
+        self._client = genai.Client(api_key=api_key)
+        self._model_name = model_name
         logger.info("GeminiService inicializado (model=%s)", model_name)
 
     async def _call(self, prompt: str) -> str:
         try:
-            response = await self._model.generate_content_async(prompt)
-            return response.text
+            def _generate() -> str:
+                response = self._client.models.generate_content(
+                    model=self._model_name,
+                    contents=prompt,
+                )
+                return response.text or ""
+
+            return await asyncio.to_thread(_generate)
         except Exception as e:
             logger.exception("Erro na chamada ao Gemini")
             return f"Erro na IA: {e}"
 
     async def _call_with_image(self, prompt: str, image_path: str) -> str:
         try:
-            img = Image.open(image_path)
-            response = await self._model.generate_content_async([prompt, img])
-            return response.text
+            def _generate() -> str:
+                with Image.open(image_path) as img:
+                    response = self._client.models.generate_content(
+                        model=self._model_name,
+                        contents=[prompt, img],
+                    )
+                return response.text or ""
+
+            return await asyncio.to_thread(_generate)
         except Exception as e:
             logger.exception("Erro na análise de imagem")
             return f"Erro na análise da IA: {e}"
@@ -72,6 +85,10 @@ class GeminiService:
 
     async def gerar_apo_usuario(self, relato: str) -> str:
         prompt = PROMPT_APO_USUARIO.format(relato=relato)
+        return await self._call(prompt)
+
+    async def gerar_apo_especialista(self, observacao: str) -> str:
+        prompt = PROMPT_APO_ESPECIALISTA.format(observacao=observacao)
         return await self._call(prompt)
 
     # ── Reuso de Água (PI I) ────────────────────────────────

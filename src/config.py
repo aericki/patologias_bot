@@ -15,12 +15,12 @@ class Settings:
 
 def load_settings() -> Settings:
     token = os.getenv("TELEGRAM_TOKEN", "")
-    api_key = os.getenv("GOOGLE_API_KEY", "")
+    api_key = os.getenv("GOOGLE_API_KEY", "") or os.getenv("GEMINI_API_KEY", "")
 
     if not token:
         raise ValueError("TELEGRAM_TOKEN não configurada no .env")
     if not api_key:
-        raise ValueError("GOOGLE_API_KEY não configurada no .env")
+        raise ValueError("GOOGLE_API_KEY (ou GEMINI_API_KEY) não configurada no .env")
 
     return Settings(
         telegram_token=token,
@@ -35,3 +35,6 @@ def setup_logging(level: str = "INFO") -> None:
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         level=getattr(logging, level.upper(), logging.INFO),
     )
+    # Evita expor URLs sensiveis (como token do bot) em logs de bibliotecas HTTP.
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)

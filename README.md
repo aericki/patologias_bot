@@ -7,7 +7,7 @@
 [![Google Gemini](https://img.shields.io/badge/Google-Gemini-orange.svg)](https://ai.google.dev/)
 [![Clean Architecture](https://img.shields.io/badge/Architecture-Clean-success.svg)](#)
 [![Pytest](https://img.shields.io/badge/Tests-37%20passed-brightgreen.svg)](#)
-[![Deploy](https://img.shields.io/badge/Deploy-Azure%20Container%20Instances-0078D4.svg)](https://azure.microsoft.com/)
+[![Deploy](https://img.shields.io/badge/Deploy-Azure%20Container%20Apps-0078D4.svg)](https://azure.microsoft.com/)
 
 ---
 
@@ -118,7 +118,7 @@ O módulo `formatters.py` implementa um pipeline de pós-processamento que trans
 |---|---|
 | Python 3.11+ | Linguagem principal |
 | `python-telegram-bot` v22+ | Framework do bot |
-| `google-generativeai` (Gemini Flash) | Motor de IA |
+| `google-genai` (Gemini Flash) | Motor de IA |
 | `Pillow` | Processamento de imagens para análise de patologias |
 | `python-dotenv` | Gerenciamento de variáveis de ambiente |
 | `pytest` | Suite de testes automatizados (37 testes) |
@@ -163,23 +163,40 @@ A suite cobre:
 
 ---
 
-## ☁️ Deploy na Nuvem (Azure Container Instances)
+## ☁️ Deploy na Nuvem (Azure Container Apps)
 
-O script `deploy_azure.ps1` automatiza o ciclo completo para contas **Azure for Students**:
+Para bot de Telegram em polling, `Azure Container Apps` e uma opcao melhor que ACI:
+- revisoes e rollout mais seguros
+- controle de segredos e variaveis por app
+- logs e operacao mais simples
+
+O script `deploy_azure_containerapps.sh` automatiza o deploy:
 
 1. Cria Resource Group e Azure Container Registry (ACR)
-2. Faz `docker build` local e `docker push` para o ACR
-3. Sobe ou recria o container no ACI (0.5 vCPU / 0.5 GB RAM)
+2. Faz build da imagem direto no ACR (`az acr build`)
+3. Cria/atualiza Container Apps Environment
+4. Cria/atualiza o app com secrets (`TELEGRAM_TOKEN`, `GOOGLE_API_KEY`)
 
-**Pré-requisitos**: Docker Desktop aberto + Azure CLI autenticado (`az login`)
+**Pre-requisitos**: Azure CLI autenticado (`az login`) e permissao na assinatura.
 
-```powershell
-# Defina as credenciais na sessão atual
-$env:TELEGRAM_TOKEN="SEU_TOKEN"
-$env:GOOGLE_API_KEY="SUA_KEY"
+```bash
+# Na raiz do projeto
+export TELEGRAM_TOKEN="SEU_TOKEN"
+export GOOGLE_API_KEY="SUA_KEY"
 
-# Execute o deploy
-.\deploy_azure.ps1
+# Opcional: customizar nomes
+export RESOURCE_GROUP="rg-patologias-bot"
+export LOCATION="brazilsouth"
+export APP_NAME="patologias-bot"
+
+# Deploy
+./deploy_azure_containerapps.sh
+```
+
+Para ver logs em tempo real:
+
+```bash
+az containerapp logs show --name patologias-bot --resource-group rg-patologias-bot --follow
 ```
 
 ---
